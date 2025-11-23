@@ -1,4 +1,4 @@
-import { LetterCell } from "./LetterCell";
+import { LetterCell } from './LetterCell';
 
 @Observed
 export class LetterFindingLogic{
@@ -187,8 +187,11 @@ export class LetterFindingLogic{
     return '1fr 1fr 1fr 1fr';
   }
 
-  getRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  private getRandomNumber(min: number, max: number): number {
+    const timestamp = Date.now();
+    const randomSeed = (timestamp * 9301 + 49297) % 233280;
+    const randomFloat = randomSeed / 233280;
+    return Math.floor(randomFloat * (max - min + 1)) + min;
   }
 
   arrayIncludes(arr: string[], item: string): boolean {

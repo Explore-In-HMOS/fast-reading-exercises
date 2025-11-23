@@ -20,6 +20,12 @@ export struct SchulteTablePage {
     this.viewModel.clearTimeout();
   }
 
+  private getRandomFloat(): number {
+    const timestamp = Date.now();
+    const randomSeed = (timestamp * 9301 + 49297) % 233280;
+    return randomSeed / 233280;
+  }
+
   build() {
 
     NavDestination() {
@@ -120,7 +126,9 @@ export struct SchulteTablePage {
                     y: cell.effect === 'pulse' ? 1.1 : cell.effect === 'shake' ? 0.9 : 1.0
                   })
                   .rotate({
-                    angle: cell.effect === 'shake' ? (Math.random() - 0.5) * 8 : 0
+
+                    angle: cell.effect === 'shake' ? (this.getRandomFloat() - 0.5) * 8 : 0
+
                   })
                   .opacity(cell.isFound ? 0.7 : 1.0)
                   .animation({
@@ -181,7 +189,8 @@ export struct SchulteTablePage {
         }
 
         // Compact Action Buttons for Watch
-        if (!this.viewModel.gameStarted || this.viewModel.gameCompleted || (!this.viewModel.gameStarted && this.viewModel.timeLeft <= 0)) {
+        if (!this.viewModel.gameStarted || this.viewModel.gameCompleted ||
+          (!this.viewModel.gameStarted && this.viewModel.timeLeft <= 0)) {
           Row({ space: 6 }) {
             if (this.viewModel.gameCompleted) {
               Button(`Next`)

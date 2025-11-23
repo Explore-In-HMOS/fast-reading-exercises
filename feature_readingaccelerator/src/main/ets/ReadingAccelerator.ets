@@ -16,8 +16,13 @@ export struct ReadingAccelerator {
   pageInfos: NavPathStack = new NavPathStack();
   @State viewModel: ReadingAcceleratorLogic = new ReadingAcceleratorLogic()
 
+  private getRandomInt(max: number): number {
+    return Math.floor((Date.now() % 10000) / 10000 * max);
+  }
+
   aboutToAppear() {
-    this.viewModel.words = this.viewModel.text[Math.floor(Math.random() * 5)].split(' ');
+    this.viewModel.words = this.viewModel.text[this.getRandomInt(5)].split(' ');
+
     this.viewModel.currentWordIndex = -1;
 
     this.viewModel.topOptions = new ArcButtonOptions({
@@ -68,15 +73,15 @@ export struct ReadingAccelerator {
               ForEach(this.viewModel.words, (word: string, idx: number) => {
                 Text(word + ' ')
                   .fontSize(15)
-                  .fontColor(this.viewModel.currentWordIndex == idx ? '#ff000000' : '#fff')
-                  .fontWeight(this.viewModel.currentWordIndex == idx ? FontWeight.Bold : FontWeight.Normal)
-                  .backgroundColor(this.viewModel.currentWordIndex == idx ? 0xCCDDFF : 0x00000000)
+                  .fontColor(this.viewModel.currentWordIndex === idx ? '#ff000000' : '#fff')
+                  .fontWeight(this.viewModel.currentWordIndex === idx ? FontWeight.Bold : FontWeight.Normal)
+                  .backgroundColor(this.viewModel.currentWordIndex === idx ? 0xCCDDFF : 0x00000000)
                   .padding(3)
                   .borderRadius(5)
                   .id(`word_${idx}`)
                   .onAreaChange((_, area: Area) => {
 
-                    if (this.viewModel.currentWordIndex == idx) {
+                    if (this.viewModel.currentWordIndex === idx) {
 
                       animateTo({
                         duration: 800,

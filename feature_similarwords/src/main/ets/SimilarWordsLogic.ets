@@ -24,6 +24,17 @@ export class SimilarWordsLogic {
   timerId: number = -1;
   messageTimer: number = -1;
 
+  private generateRandomValue(): string | number {
+    const randomFloat = ((Date.now() % 10000) / 10000);
+    return (randomFloat - 0.5) * 4;
+  }
+
+  private getRandomIndex(max: number): number {
+    const timestamp = Date.now();
+    const randomSeed = (timestamp * 9301 + 49297) % 233280;
+    return Math.floor((randomSeed / 233280) * max);
+  }
+
   resetAllEffects(): void {
     for (let i = 0; i < this.wordGroups.length; i++) {
       this.wordGroups[i].effect = 'none';
@@ -89,15 +100,18 @@ export class SimilarWordsLogic {
 
     const size = 9;
     const groups: WordGroup[] = [];
-    const differentIndex = Math.floor(Math.random() * size);
+
+    const differentIndex = this.getRandomIndex(size);
+
 
     for (let i = 0; i < size; i++) {
       if (i === differentIndex) {
-        const word1 = wordList[Math.floor(Math.random() * wordList.length)];
-        let word2 = wordList[Math.floor(Math.random() * wordList.length)];
+
+        const word1 = wordList[this.getRandomIndex(wordList.length)];
+        let word2 = wordList[this.getRandomIndex(wordList.length)];
 
         while (word2 === word1) {
-          word2 = wordList[Math.floor(Math.random() * wordList.length)];
+          word2 = wordList[this.getRandomIndex(wordList.length)];
         }
 
         groups.push({
@@ -108,7 +122,9 @@ export class SimilarWordsLogic {
           id: i
         });
       } else {
-        const word = wordList[Math.floor(Math.random() * wordList.length)];
+
+        const word = wordList[this.getRandomIndex(wordList.length)];
+
         groups.push({
           word1: word,
           word2: word,

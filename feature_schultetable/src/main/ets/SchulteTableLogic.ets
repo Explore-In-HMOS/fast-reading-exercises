@@ -70,6 +70,12 @@ export class SchulteTableLogic {
     this.timeLeft = this.timeLimit;
   }
 
+  private getRandomFloat(): number {
+    const timestamp = Date.now();
+    const randomSeed = (timestamp * 9301 + 49297) % 233280;
+    return randomSeed / 233280;
+  }
+
    generateTable(): void {
     const numbers: number[] = [];
     for (let i = 1; i <= this.totalCells; i++) {
@@ -77,7 +83,9 @@ export class SchulteTableLogic {
     }
 
     for (let i = numbers.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+
+      const j = Math.floor(this.getRandomFloat() * (i + 1));
+
       const temp = numbers[i];
       numbers[i] = numbers[j];
       numbers[j] = temp;

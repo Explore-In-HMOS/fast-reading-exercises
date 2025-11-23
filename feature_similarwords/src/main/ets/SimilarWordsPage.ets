@@ -23,6 +23,10 @@ export struct SimilarWordsPage {
     this.viewmodel.clearMessageTimer();
   }
 
+  private getRandomInt(max: number): number {
+    return Math.floor((Date.now() % 10000) / 10000 * max);
+  }
+
   build() {
 
     NavDestination() {
@@ -126,7 +130,8 @@ export struct SimilarWordsPage {
                 y: group.effect === 'pulse' ? 1.05 : group.effect === 'wrong' ? 0.95 : 1.0
               })
               .rotate({
-                angle: group.effect === 'wrong' ? (Math.random() - 0.5) * 4 : 0
+                angle: group.effect === 'wrong' ? (this.getRandomInt(1) - 0.5) * 4 : 0
+
               })
               .animation({
                 duration: group.effect === 'pulse' ? 400 : 200,

@@ -1,4 +1,3 @@
-import { router } from '@kit.ArkUI';
 import { Logger } from 'commons_library';
 
 @Builder
@@ -21,7 +20,6 @@ export struct LandingPage {
               .fontColor(Color.White)
               .fontWeight(FontWeight.Bold)
               .onClick(() => {
-                router.back()
               })
 
           }

@@ -1,4 +1,4 @@
-import { ArcButtonOptions, prompt } from "@kit.ArkUI";
+import { ArcButtonOptions, prompt } from '@kit.ArkUI';
 
 @Observed
 export class ReadingAcceleratorLogic{
