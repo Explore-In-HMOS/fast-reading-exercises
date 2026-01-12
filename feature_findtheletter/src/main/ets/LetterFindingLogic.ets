@@ -1,7 +1,7 @@
 import { LetterCell } from './LetterCell';
 
 @Observed
-export class LetterFindingLogic{
+export class LetterFindingLogic {
 
   @Track targetLetter: string = '';
   @Track letterGrid: LetterCell[] = [];
@@ -42,7 +42,7 @@ export class LetterFindingLogic{
 
     const newGrid: LetterCell[] = [];
 
-    let targetCount = this.calculateTargetCount();
+    const targetCount = this.calculateTargetCount();
     this.maxLettersInGrid = this.calculateGridSize();
     this.totalTargetLetters = targetCount;
 
@@ -356,37 +356,7 @@ export class LetterFindingLogic{
     return this.foundLetters >= this.totalTargetLetters;
   }
 
-  getCellBackgroundColor(cell: LetterCell): string {
-    if (cell.effect === 'shine') {
-      return '#fff3e0';
-    }
-    if (cell.effect === 'success' || cell.isFound) {
-      return '#e8f5e8';
-    }
-    if (cell.effect === 'fail') {
-      return '#ffebee';
-    }
-    if (cell.isVisible) {
-      return '#ffffff';
-    }
-    return '#f0f0f0';
-  }
 
-  getCellBorderColor(cell: LetterCell): string {
-    if (cell.effect === 'shine') {
-      return '#ff9800';
-    }
-    if (cell.effect === 'success' || cell.isFound) {
-      return '#4caf50';
-    }
-    if (cell.effect === 'fail') {
-      return '#f44336';
-    }
-    if (cell.isVisible) {
-      return '#ddd';
-    }
-    return '#f0f0f0';
-  }
 
   getMessageColor(): string {
     if (this.message.includes('Congratulations') || this.message.includes('Correct') ||

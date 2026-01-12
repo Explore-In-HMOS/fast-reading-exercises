@@ -5,7 +5,8 @@
     "deviceTypes": [
       "wearable"
     ],
-    "routerMap": "$profile:router_map"
+    "routerMap": "$profile:router_map",
+
 
   }
 }

@@ -9,9 +9,7 @@ export function SimilarWordsPageBuilder(name: string, param: Object) {
 
 @Component
 export struct SimilarWordsPage {
-
   @State viewmodel: SimilarWordsLogic = new SimilarWordsLogic()
-
   pageInfos: NavPathStack = new NavPathStack();
 
   aboutToAppear(): void {
@@ -59,7 +57,7 @@ export struct SimilarWordsPage {
             .borderRadius(6)
         }
         .justifyContent(FlexAlign.SpaceEvenly)
-        .padding({top:5})
+        .padding({ top: 5 })
         .width('50%')
 
 
@@ -141,13 +139,13 @@ export struct SimilarWordsPage {
               })
               .onClick(() => this.viewmodel.checkAnswer(index))
             }
-          }, (group: WordGroup) => `group_${group.id}_${this.viewmodel.updateTrigger}`)
+          }, (item: string, index: number) => item)
         }
         .columnsTemplate('1fr 1fr 1fr')
         .rowsTemplate('1fr 1fr 1fr')
         .columnsGap(7)
         .rowsGap(7)
-        .padding({left:5,right:5})
+        .padding({ left: 5, right: 5 })
         .width('90%')
         .height('55%')
 
@@ -174,7 +172,6 @@ export struct SimilarWordsPage {
                 .fontSize(10)
                 .fontWeight(FontWeight.Bold)
                 .fontColor('#27ae60')
-
 
             }
             .padding(6)
@@ -234,8 +231,7 @@ export struct SimilarWordsPage {
     .hideTitleBar(true)
     .onReady((context: NavDestinationContext) => {
       this.pageInfos = context.pathStack
-      Logger.info('current page config info is ' + JSON.stringify(context.getConfigInRouteMap()));
+      Logger.info(`current page config info is ` + JSON.stringify(context.getConfigInRouteMap()));
     })
   }
-
 }

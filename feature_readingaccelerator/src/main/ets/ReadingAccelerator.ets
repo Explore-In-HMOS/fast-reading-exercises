@@ -1,9 +1,14 @@
 import { Logger } from 'commons_library';
 import {
   ArcButton,
-  ArcButtonOptions, ArcButtonPosition,
+  ArcButtonOptions,
+  ArcButtonPosition,
   ArcButtonStatus,
-  ArcButtonStyleMode, LengthMetrics, LengthUnit } from '@kit.ArkUI';
+  ArcButtonStyleMode,
+  LengthMetrics,
+  LengthUnit,
+  UIContext
+} from '@kit.ArkUI';
 import { ReadingAcceleratorLogic } from './ReadingAcceleratorLogic';
 
 @Builder
@@ -32,7 +37,7 @@ export struct ReadingAccelerator {
       styleMode: ArcButtonStyleMode.EMPHASIZED_LIGHT,
       fontSize: new LengthMetrics(15, LengthUnit.FP),
       shadowEnabled: true,
-      onClick: () =>{
+      onClick: () => {
         this.viewModel.startReading()
       }
     })
@@ -51,9 +56,6 @@ export struct ReadingAccelerator {
     })
   }
 
-
-
-
   build() {
 
     NavDestination() {
@@ -61,9 +63,8 @@ export struct ReadingAccelerator {
       Row() {
         Column({ space: 2 }) {
 
-             ArcButton({ options: this.viewModel.topOptions })
+          ArcButton({ options: this.viewModel.topOptions })
             .enabled(!this.viewModel.isStarted)
-
 
 
           Scroll(this.viewModel.scroller) {
@@ -71,7 +72,7 @@ export struct ReadingAccelerator {
             Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
               Text('    ').visibility(Visibility.Hidden)
               ForEach(this.viewModel.words, (word: string, idx: number) => {
-                Text(word + ' ')
+                Text(word + ` `)
                   .fontSize(15)
                   .fontColor(this.viewModel.currentWordIndex === idx ? '#ff000000' : '#fff')
                   .fontWeight(this.viewModel.currentWordIndex === idx ? FontWeight.Bold : FontWeight.Normal)
@@ -83,7 +84,7 @@ export struct ReadingAccelerator {
 
                     if (this.viewModel.currentWordIndex === idx) {
 
-                      animateTo({
+                      UIContext.prototype.animateTo({
                         duration: 800,
                         curve: Curve.EaseOut,
                         onFinish: () => {
@@ -93,9 +94,7 @@ export struct ReadingAccelerator {
                       });
                     }
                   })
-
-              }, (item: string) => item)
-
+              }, (item: string, index: number) => item)
 
             }
             .margin({
@@ -125,11 +124,8 @@ export struct ReadingAccelerator {
     .hideTitleBar(true)
     .onReady((context: NavDestinationContext) => {
       this.pageInfos = context.pathStack
-      Logger.info('current page config info is ' + JSON.stringify(context.getConfigInRouteMap()));
+      Logger.info(`current page config info is ` + JSON.stringify(context.getConfigInRouteMap()));
     })
 
   }
-
-
-
 }

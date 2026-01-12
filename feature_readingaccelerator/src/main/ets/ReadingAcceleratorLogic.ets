@@ -1,14 +1,11 @@
-import { ArcButtonOptions, prompt } from '@kit.ArkUI';
+import { ArcButtonOptions, UIContext } from '@kit.ArkUI';
 
 @Observed
-export class ReadingAcceleratorLogic{
-
-
-  @Track startLabel:string = 'Start';
+export class ReadingAcceleratorLogic {
+  @Track startLabel: string = 'Start';
   @Track bottomOptions: ArcButtonOptions = new ArcButtonOptions({});
   @Track topOptions: ArcButtonOptions = new ArcButtonOptions({});
   @Track scroller: Scroller = new Scroller();
-
   @Track text: string[] = [
     'Technology continues to shape the way people interact, work, and learn in today\'s world. With rapid advancements in artificial intelligence, communication has become faster and more efficient, making it possible to connect with others across the globe instantly. While technology offers many conveniences, it also raises important questions about privacy, security, and the impact on daily life. As new innovations emerge, society faces both exciting opportunities and unique challenges, emphasizing the importance of adapting to a constantly changing environment.',
     'Education is undergoing a transformative period, driven by digital tools and evolving learning methodologies. Online platforms and virtual classrooms now offer unprecedented access to knowledge, transcending geographical barriers and traditional schedules. This shift allows for personalized learning paths, catering to diverse student needs and paces. However, it also demands critical thinking about digital literacy, equitable access to technology, and the enduring role of human connection in the learning process. As educational landscapes continue to evolve, adaptability and innovation will be crucial for preparing individuals for tomorrow\'s complex world.',
@@ -40,7 +37,11 @@ export class ReadingAcceleratorLogic{
       } else {
         clearInterval(this.timer);
         this.isStarted = false;
-        prompt.showToast({ message: 'Read Completed!' });
+        try {
+          UIContext.prototype.getPromptAction().showToast({ message: 'Read Completed!' });
+        } catch (error) {
+          // TODO: Implement error handling.
+        }
         this.topOptions.label = 'Start'
       }
     }, 300);
@@ -52,12 +53,10 @@ export class ReadingAcceleratorLogic{
     this.topOptions.label = 'Start'
   }
 
-
-
-
   changeName() {
     this.startReading()
   }
+
   scrollToCurrentWord() {
 
     this.scroller.scrollTo({

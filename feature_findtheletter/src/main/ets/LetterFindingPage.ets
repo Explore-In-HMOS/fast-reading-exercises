@@ -1,5 +1,5 @@
 import { Logger } from 'commons_library';
-import { LetterCell } from './LetterCell';
+import { getCellBackgroundColor, getCellBorderColor, LetterCell } from './LetterCell';
 import { LetterFindingLogic } from './LetterFindingLogic';
 
 
@@ -10,7 +10,7 @@ export function LetterFindingPageBuilder(name: string, param: Object) {
 
 @Component
 export struct LetterFindingPage {
-  @State viewModel:LetterFindingLogic = new LetterFindingLogic()
+  @State viewModel: LetterFindingLogic = new LetterFindingLogic()
   pageInfos: NavPathStack = new NavPathStack();
 
   aboutToAppear(): void {
@@ -21,11 +21,11 @@ export struct LetterFindingPage {
   }
 
   aboutToDisappear(): void {
-    if (  this.viewModel.messageTimer !== -1) {
-      clearTimeout( this.viewModel.messageTimer);
+    if (this.viewModel.messageTimer !== -1) {
+      clearTimeout(this.viewModel.messageTimer);
     }
-    if ( this.viewModel.timeTimer !== -1) {
-      clearInterval( this.viewModel.timeTimer);
+    if (this.viewModel.timeTimer !== -1) {
+      clearInterval(this.viewModel.timeTimer);
     }
   }
 
@@ -34,15 +34,15 @@ export struct LetterFindingPage {
     NavDestination() {
 
       Column() {
-        Text(`Level: ${ this.viewModel.level}`)
+        Text(`Level: ${this.viewModel.level}`)
           .fontSize(11)
           .fontWeight(FontWeight.Bold)
           .fontColor('#007AFF')
 
-        Text(`Time: ${ this.viewModel.timeLeft}s`)
+        Text(`Time: ${this.viewModel.timeLeft}s`)
           .fontSize(14)
           .fontWeight(FontWeight.Bold)
-          .fontColor( this.viewModel.timeLeft <= 10 ? '#FF4444' : '#FF6B35')
+          .fontColor(this.viewModel.timeLeft <= 10 ? '#FF4444' : '#FF6B35')
           .margin({ top: 3 })
 
         Row() {
@@ -54,7 +54,7 @@ export struct LetterFindingPage {
 
           Blank().width('5%')
 
-          Text( this.viewModel.targetLetter.toUpperCase())
+          Text(this.viewModel.targetLetter.toUpperCase())
             .fontSize(17)
             .fontWeight(FontWeight.Bold)
             .fontColor('#007AFF')
@@ -69,7 +69,7 @@ export struct LetterFindingPage {
         Blank().height(7)
 
         Grid() {
-          ForEach( this.viewModel.letterGrid, (cell: LetterCell, index: number) => {
+          ForEach(this.viewModel.letterGrid, (cell: LetterCell, index: number) => {
             GridItem() {
               Row() {
                 Text(cell.isVisible ? cell.letter.toUpperCase() : '')
@@ -78,10 +78,10 @@ export struct LetterFindingPage {
                   .textAlign(TextAlign.Center)
                   .width('100%')
                   .height('100%')
-                  .backgroundColor( this.viewModel.getCellBackgroundColor(cell))
+                  .backgroundColor(getCellBackgroundColor(cell))
                   .border({
                     width: 2,
-                    color:  this.viewModel.getCellBorderColor(cell)
+                    color: getCellBorderColor(cell)
                   })
                   .borderRadius(12)
                   .opacity(cell.isVisible ? 1 : 0.3)
@@ -97,28 +97,34 @@ export struct LetterFindingPage {
                     iterations: cell.effect === 'shine' ? 2 : 1,
                     playMode: cell.effect === 'shine' ? PlayMode.Alternate : PlayMode.Normal
                   })
-                  .onClick(() =>  this.viewModel.checkLetter(index))
-              }
+                  .onClick(() => this.viewModel.checkLetter(index))
+              }.backgroundColor(Color.Transparent)
             }
-          }, (cell: LetterCell) => `cell_${cell.id}_${ this.viewModel.updateTrigger}`)
+          }, (item: string, index: number) => item)
+
         }
-        .columnsTemplate( this.viewModel.getColumnsTemplate())
-        .rowsTemplate( this.viewModel.getRowsTemplate())
+        .columnsTemplate(this.viewModel.getColumnsTemplate())
+        .rowsTemplate(this.viewModel.getRowsTemplate())
         .columnsGap(12)
         .rowsGap(12)
         .width('94%')
-        .padding({left:8,right:8,top:3,bottom:3})
-        .height( this.viewModel.maxLettersInGrid <= 12 ? 100 : 120)
+        .padding({
+          left: 8,
+          right: 8,
+          top: 3,
+          bottom: 3
+        })
+        .height(this.viewModel.maxLettersInGrid <= 12 ? 100 : 120)
 
-        if ( this.viewModel.message !== '') {
-          Text( this.viewModel.message)
+        if (this.viewModel.message !== '') {
+          Text(this.viewModel.message)
             .fontSize(11)
             .fontWeight(FontWeight.Bold)
-            .fontColor( this.viewModel.getMessageColor())
+            .fontColor(this.viewModel.getMessageColor())
             .padding(15)
-            .backgroundColor( this.viewModel.getMessageBackgroundColor())
+            .backgroundColor(this.viewModel.getMessageBackgroundColor())
             .borderRadius(12)
-            .margin({ top: 2, bottom:10})
+            .margin({ top: 2, bottom: 10 })
 
             .maxLines(2)
             .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -135,10 +141,8 @@ export struct LetterFindingPage {
     .hideTitleBar(true)
     .onReady((context: NavDestinationContext) => {
       this.pageInfos = context.pathStack
-      Logger.info('current page config info is ' + JSON.stringify(context.getConfigInRouteMap()));
+      Logger.info(`current page config info is ` + JSON.stringify(context.getConfigInRouteMap()));
     })
 
   }
-
-
 }

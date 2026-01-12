@@ -76,3 +76,35 @@ export class LetterCell {
     return newCell;
   }
 }
+
+export function getCellBackgroundColor(cell: LetterCell): string {
+  if (cell.effect === 'shine') {
+    return '#fff3e0';
+  }
+  if (cell.effect === 'success' || cell.isFound) {
+    return '#e8f5e8';
+  }
+  if (cell.effect === 'fail') {
+    return '#ffebee';
+  }
+  if (cell.isVisible) {
+    return '#ffffff';
+  }
+  return '#f0f0f0';
+}
+
+export function getCellBorderColor(cell: LetterCell): string {
+  if (cell.effect === 'shine') {
+    return '#ff9800';
+  }
+  if (cell.effect === 'success' || cell.isFound) {
+    return '#4caf50';
+  }
+  if (cell.effect === 'fail') {
+    return '#f44336';
+  }
+  if (cell.isVisible) {
+    return '#ddd';
+  }
+  return '#f0f0f0';
+}

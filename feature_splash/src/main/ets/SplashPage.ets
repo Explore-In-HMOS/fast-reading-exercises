@@ -51,7 +51,7 @@ export struct SplashPage {
     .hideTitleBar(true)
     .onReady((context: NavDestinationContext) => {
       this.pageInfos = context.pathStack
-      Logger.info('current page config info is ' + JSON.stringify(context.getConfigInRouteMap()));
+      Logger.info(`current page config info is ` + JSON.stringify(context.getConfigInRouteMap()));
     })
   }
 }

@@ -8,7 +8,7 @@ export function SchulteTablePageBuilder(name: string, param: Object) {
 
 @Component
 export struct SchulteTablePage {
-  @State viewModel : SchulteTableLogic = new SchulteTableLogic()
+  @State viewModel: SchulteTableLogic = new SchulteTableLogic()
   pageInfos: NavPathStack = new NavPathStack();
 
   aboutToAppear(): void {
@@ -39,7 +39,7 @@ export struct SchulteTablePage {
           Text(`L${this.viewModel.level}`)
             .fontSize(12)
             .fontWeight(FontWeight.Bold)
-            .fontColor('#007AFF')
+            .fontColor('#0051a8')
             .padding(4)
             .backgroundColor('#f0f8ff')
             .borderRadius(8)
@@ -55,10 +55,11 @@ export struct SchulteTablePage {
           Text(`${this.viewModel.score}`)
             .fontSize(12)
             .fontWeight(FontWeight.Bold)
-            .fontColor('#27ae60')
+            .fontColor('#1e8449')
             .padding(4)
             .backgroundColor('#e8f5e8')
             .borderRadius(8)
+
         }
         .justifyContent(FlexAlign.SpaceEvenly)
         .width('50%')
@@ -72,7 +73,7 @@ export struct SchulteTablePage {
           Text(`${this.viewModel.currentTarget}`)
             .fontSize(16)
             .fontWeight(FontWeight.Bold)
-            .fontColor('#007AFF')
+            .fontColor('#0051a8')
             .padding({
               left: 6,
               right: 6,
@@ -81,14 +82,14 @@ export struct SchulteTablePage {
             })
             .backgroundColor('#e3f2fd')
             .borderRadius(8)
-            .border({ width: 1, color: '#007AFF' })
-            .margin({left:3})
+            .border({ width: 1, color: '#0051a8' })
+            .margin({ left: 3 })
 
           if (this.viewModel.combo > 1) {
             Text(`🔥${this.viewModel.combo}`)
               .fontSize(10)
               .fontWeight(FontWeight.Bold)
-              .fontColor('#FF6B35')
+              .fontColor('#c74a1a')
               .padding({
                 left: 6,
                 right: 6,
@@ -97,7 +98,7 @@ export struct SchulteTablePage {
               })
               .backgroundColor('#fff3e0')
               .borderRadius(8)
-              .margin({left:2})
+              .margin({ left: 2 })
           }
         }
         .justifyContent(FlexAlign.Center)
@@ -141,7 +142,7 @@ export struct SchulteTablePage {
               }, (cell: TableCell) => `cell_${cell.id}_${this.viewModel.updateTrigger}`)
             }
             .justifyContent(FlexAlign.Center)
-          }, (row: TableCell[]) => `row_${this.viewModel.updateTrigger}`)
+          }, (item: string, index: number) => item)
         }
         .padding(8)
         .backgroundColor('#f8f9fa')
@@ -196,8 +197,8 @@ export struct SchulteTablePage {
               Button(`Next`)
                 .fontSize(11)
                 .fontWeight(FontWeight.Bold)
-                .fontColor('#fff')
-                .backgroundColor('#27ae60')
+                .fontColor('#ffffff')
+                .backgroundColor('#1e8449')
                 .borderRadius(8)
                 .padding({
                   top: 6,
@@ -210,8 +211,8 @@ export struct SchulteTablePage {
               Button('Start')
                 .fontSize(11)
                 .fontWeight(FontWeight.Bold)
-                .fontColor('#fff')
-                .backgroundColor('#007AFF')
+                .fontColor('#ffffff')
+                .backgroundColor('#0051a8')
                 .height('25vp')
                 .borderRadius(8)
                 .padding({
@@ -248,9 +249,8 @@ export struct SchulteTablePage {
     .hideTitleBar(true)
     .onReady((context: NavDestinationContext) => {
       this.pageInfos = context.pathStack
-      Logger.info('current page config info is ' + JSON.stringify(context.getConfigInRouteMap()));
+      Logger.info(`current page config info is ` + JSON.stringify(context.getConfigInRouteMap()));
     })
 
   }
-
 }

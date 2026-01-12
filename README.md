@@ -7,10 +7,10 @@
 # Preview
 
 <div>
-  <img src="Images/1.gif" width="24%">
-  <img src="Images/2.png" width="24%">
-  <img src="Images/3.png" width="24%">
-  <img src="Images/4.png" width="24%">
+  <img src="screenshots/1.gif" width="24%">
+  <img src="screenshots/2.png" width="24%">
+  <img src="screenshots/3.png" width="24%">
+  <img src="screenshots/4.png" width="24%">
 </div>
 
 # Use Cases

@@ -5,7 +5,6 @@ export function LandingPageBuilder(name: string, param: Object) {
   LandingPage()
 }
 
-@Entry
 @Component
 export struct LandingPage {
   pageInfos: NavPathStack = new NavPathStack();
@@ -17,30 +16,28 @@ export struct LandingPage {
           Column() {
             Text('Fast Reading Exercises')
               .fontSize(13)
-              .fontColor(Color.White)
+              .fontColor('#ffffff') // Beyaz metin - siyah arka planda yeterli kontrast
               .fontWeight(FontWeight.Bold)
-              .onClick(() => {
-              })
 
           }
           .width('100%')
           .padding({ top: 12 })
           .margin({ bottom: 5 })
 
-          this.buildMenuItem('Find The Letter', $r('app.media.icon_monochrome'), Color.Blue, Color.White, Color.Blue,
+          this.buildMenuItem('Find The Letter', $r('app.media.icon_monochrome'), '#0051a8', '#ffffff', '#0051a8',
             () => {
               this.pageInfos.pushPathByName('LetterFindingPage', null);
             })
 
-          this.buildMenuItem('Accelerator', $r('app.media.bookiconss'), Color.Blue, Color.White, Color.Red, () => {
+          this.buildMenuItem('Accelerator', $r('app.media.bookiconss'), '#c62828', '#ffffff', '#c62828', () => {
             this.pageInfos.pushPathByName('ReadingAccelerator', null);
           })
 
-          this.buildMenuItem('Schulte Table', $r('app.media.tick'), Color.Blue, Color.White, Color.Green, () => {
+          this.buildMenuItem('Schulte Table', $r('app.media.tick'), '#1e8449', '#ffffff', '#1e8449', () => {
             this.pageInfos.pushPathByName('SchulteTablePage', null);
           })
 
-          this.buildMenuItem('Similar Words', $r('app.media.icon_cropped'), Color.Blue, Color.White, Color.Orange,
+          this.buildMenuItem('Similar Words', $r('app.media.icon_cropped'), '#c74a1a', '#ffffff', '#c74a1a',
             () => {
               this.pageInfos.pushPathByName('SimilarWordsPage', null);
             })
@@ -52,17 +49,17 @@ export struct LandingPage {
       }
       .width('100%')
       .height('100%')
-      .backgroundColor(Color.Black)
+      .backgroundColor('#000000')
     }
     .hideTitleBar(true)
     .onReady((context: NavDestinationContext) => {
       this.pageInfos = context.pathStack
-      Logger.info('current page config info is ' + JSON.stringify(context.getConfigInRouteMap()));
+      Logger.info(`current page config info is ` + JSON.stringify(context.getConfigInRouteMap()));
     })
   }
 
   @Builder
-  buildMenuItem(label: string, icon: ResourceStr | string, iconColor: Color, textColor: Color, bgColor: Color,
+  buildMenuItem(label: string, icon: ResourceStr | string, iconColor: string, textColor: string, bgColor: string,
     action: () => void) {
     Row({ space: 10 }) {
       if (icon) {
@@ -83,9 +80,9 @@ export struct LandingPage {
         Text('SOS')
           .fontSize(14)
           .fontWeight(FontWeight.Bold)
-          .fontColor(Color.White)
+          .fontColor('#ffffff')
           .padding(4)
-          .backgroundColor(Color.Red)
+          .backgroundColor('#c62828')
           .borderRadius(14)
       }
 
